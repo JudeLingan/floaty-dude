@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://rb1h161ef6xh"]
+
+[ext_resource type="Texture2D" uid="uid://bx14ssf34e62" path="res://icon.svg" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bj2m4kpwr3sdb" path="res://player/player.gd" id="1_g1dw6"]
+[ext_resource type="Script" uid="uid://c2eya68eyfyt7" path="res://util/resource.gd" id="3_yw30f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
+radius = 60.0
+
+[node name="Player" type="CharacterBody2D"]
+floor_stop_on_slope = false
+script = ExtResource("1_g1dw6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4flbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_onrkg")
+
+[node name="AirGage" type="Node" parent="."]
+script = ExtResource("3_yw30f")
