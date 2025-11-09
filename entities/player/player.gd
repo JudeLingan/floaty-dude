@@ -38,7 +38,6 @@ func apply_force_clamp(force: Vector2, limit: Vector2) -> void:
 	# make it so that force is no greater than clamp
 	var old_force := force
 	force.clamp(-abs(limit), abs(limit));
-	if (old_force != force): print("clamped")
 	apply_force(force)
 
 func walk(direction: float, jump: bool, delta: float) -> void:
@@ -47,8 +46,6 @@ func walk(direction: float, jump: bool, delta: float) -> void:
 		sprite.flip_h = direction < 0
 		animation = "walk"
 		var max_force: Vector2 = Vector2(speed - velocity.x*direction, 0)
-		print(str(max_force))
-		print(accel*delta)
 		var force: Vector2 = Vector2(accel*delta, 0)
 
 		force.x = min(force.x, max_force.x)
