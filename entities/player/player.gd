@@ -8,8 +8,9 @@ extends CharacterBody2D
 @export var decel_time_water: float = 1.0
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-var accel = speed/accel_time
-var decel = speed/decel_time
+
+@onready var accel = speed/accel_time
+@onready var decel = speed/decel_time
 
 func _ready() -> void:
 	sprite.play()
@@ -25,27 +26,40 @@ func _physics_process(delta: float) -> void:
 		jump = true
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("left", "right")
 	walk(direction, jump, delta)
 
 	move_and_slide()
+
+func apply_force(force: Vector2) -> void:
+	velocity += force
+
+func apply_force_clamp(force: Vector2, limit: Vector2) -> void:
+	# make it so that force is no greater than clamp
+	var old_force := force
+	force.clamp(-abs(limit), abs(limit));
+	if (old_force != force): print("clamped")
+	apply_force(force)
 
 func walk(direction: float, jump: bool, delta: float) -> void:
 	var animation = "idle"
 	if (direction):
 		sprite.flip_h = direction < 0
 		animation = "walk"
-		velocity.x = sign(direction)*max(
-			move_toward(velocity.x*direction, speed, accel*delta),
-			decelleration(delta)*direction)
+		var max_force: Vector2 = Vector2(speed - velocity.x*direction, 0)
+		print(str(max_force))
+		print(accel*delta)
+		var force: Vector2 = Vector2(accel*delta, 0)
+
+		force.x = min(force.x, max_force.x)
+		apply_force(direction*force)
 	
 	else:
-		velocity.x = decelleration(delta)
 		animation = "idle"
+		apply_force_clamp(Vector2(-sign(velocity.x)*decel*delta, 0), Vector2(velocity.x, 0))
 	
 	if (jump):
-		velocity.y = min(velocity.y, jump_velocity)
+		apply_force(Vector2(0, min(jump_velocity - velocity.y, 0)));
 	
 	if (!is_on_floor() || velocity.y < 0):
 		animation = "jump"
@@ -56,6 +70,3 @@ func toggle_animation(animation: String) -> void:
 	if (sprite.animation != animation):
 		sprite.animation = animation
 		sprite.play()
-	
-func decelleration(delta: float) -> float:
-	return move_toward(velocity.x, 0, (speed)/decel_time*delta)

@@ -7,6 +7,8 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_37kl0")]
+accel_time = 0.001
+decel_time = 0.001
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
