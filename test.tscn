@@ -1,17 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bavnp2iy8ico4"]
 
 [ext_resource type="PackedScene" uid="uid://rb1h161ef6xh" path="res://entities/player/player.tscn" id="1_37kl0"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_37kl0"]
+[ext_resource type="PackedScene" uid="uid://pfp2sepuun87" path="res://platforms/water/water.tscn" id="2_8uh7m"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_37kl0")]
+boyancy = 30.0
 accel_time = 0.001
 decel_time = 0.001
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 160)
-shape = SubResource("WorldBoundaryShape2D_37kl0")
+[node name="Water" parent="." instance=ExtResource("2_8uh7m")]
+position = Vector2(2, 207)

@@ -142,3 +142,5 @@ scale = Vector2(6.7, 6.7)
 sprite_frames = SubResource("SpriteFrames_wvtmh")
 animation = &"jump"
 speed_scale = 1.42
+
+[node name="Camera2D2" type="Camera2D" parent="."]

@@ -1,7 +1,10 @@
 extends CharacterBody2D
 
+class_name Player
+
 @export var speed: float = 300.0
 @export var jump_velocity: float = -400.0
+@export var boyancy: float = 10.0
 @export var accel_time: float = 1.0
 @export var accel_time_water: float = 1.0
 @export var decel_time: float = 1.0
@@ -12,13 +15,19 @@ extends CharacterBody2D
 @onready var accel = speed/accel_time
 @onready var decel = speed/decel_time
 
+var is_in_water: bool = false;
+
 func _ready() -> void:
 	sprite.play()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if not is_on_floor():
+	if !is_on_floor():
 		velocity += get_gravity() * delta
+
+	if is_in_water:
+		print("water!")
+		velocity.y -= boyancy
 
 	# Handle jump.
 	var jump: bool = false
@@ -36,7 +45,6 @@ func apply_force(force: Vector2) -> void:
 
 func apply_force_clamp(force: Vector2, limit: Vector2) -> void:
 	# make it so that force is no greater than clamp
-	var old_force := force
 	force.clamp(-abs(limit), abs(limit));
 	apply_force(force)
 
