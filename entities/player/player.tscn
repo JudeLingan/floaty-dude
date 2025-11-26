@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://rb1h161ef6xh"]
+[gd_scene load_steps=22 format=3 uid="uid://rb1h161ef6xh"]
 
 [ext_resource type="Script" uid="uid://bj2m4kpwr3sdb" path="res://entities/player/player.gd" id="1_g1dw6"]
 [ext_resource type="Texture2D" uid="uid://bmj2158iyogml" path="res://entities/player/sprites/idle.png" id="3_sglur"]
 [ext_resource type="Script" uid="uid://c2eya68eyfyt7" path="res://util/resource.gd" id="3_yw30f"]
 [ext_resource type="Texture2D" uid="uid://s7pckyre7cvs" path="res://entities/player/sprites/walking.png" id="4_bls4j"]
+[ext_resource type="Script" uid="uid://bpdg3axis58bg" path="res://objects/floater/floater.gd" id="5_fkugw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fkugw"]
 radius = 15.0
@@ -119,6 +120,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8fjmc"]
+radius = 13.0
+height = 54.0
+
 [node name="Player" type="CharacterBody2D"]
 floor_stop_on_slope = false
 script = ExtResource("1_g1dw6")
@@ -144,3 +149,14 @@ animation = &"jump"
 speed_scale = 1.42
 
 [node name="Camera2D2" type="Camera2D" parent="."]
+
+[node name="Floaty" type="CharacterBody2D" parent="."]
+position = Vector2(0, 13)
+collision_layer = 64
+script = ExtResource("5_fkugw")
+boyancy = 1300.0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floaty"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_8fjmc")

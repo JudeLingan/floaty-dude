@@ -15,19 +15,13 @@ class_name Player
 @onready var accel = speed/accel_time
 @onready var decel = speed/decel_time
 
-var is_in_water: bool = false;
-
 func _ready() -> void:
 	sprite.play()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if !is_on_floor():
+	if !(is_on_floor()):
 		velocity += get_gravity() * delta
-
-	if is_in_water:
-		print("water!")
-		velocity.y -= boyancy
 
 	# Handle jump.
 	var jump: bool = false
