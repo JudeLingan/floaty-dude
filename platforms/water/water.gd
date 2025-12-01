@@ -1,5 +1,7 @@
 extends Area2D
 
+class_name Water
+
 @export var current: float = 0.0
 var impact = 2
 var floaters: Array[Floater]
@@ -12,9 +14,9 @@ func connect_signals() -> void:
 	self.body_exited.connect(_on_body_exited)
 
 func _physics_process(delta: float) -> void:
-	move_players(delta)
+	move_floaters(delta)
 
-func move_players(delta: float) -> void:
+func move_floaters(delta: float) -> void:
 	for i in floaters:
 		i.apply_force(-transform.x.normalized()*current*delta)
 

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://xdrmlcx6hubo"]
+
+[ext_resource type="Texture2D" uid="uid://do665rav4d443" path="res://environment-sprites/Cloud1.png" id="1_kdlr1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdlr1"]
+size = Vector2(90, 5)
+
+[node name="Cloud1" type="AnimatableBody2D"]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(6.7, 6.7)
+texture = ExtResource("1_kdlr1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kdlr1")
+one_way_collision = true

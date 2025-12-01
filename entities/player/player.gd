@@ -121,9 +121,7 @@ func enter_state(state: VertStates) -> void:
 
 func air_boost(delta):
 	%AirGage.use(1.0*delta)
-	var dir: Vector2 = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down")).normalized()
-	if dir.length() == 0: dir = Vector2.UP
-	velocity += dir*air_propulsion*delta
+	velocity += Vector2.UP*air_propulsion*delta
 
 func apply_force(force: Vector2) -> void:
 	velocity += force

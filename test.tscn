@@ -1,18 +1,23 @@
 [gd_scene load_steps=4 format=3 uid="uid://bavnp2iy8ico4"]
 
 [ext_resource type="PackedScene" uid="uid://rb1h161ef6xh" path="res://entities/player/player.tscn" id="1_37kl0"]
-[ext_resource type="PackedScene" uid="uid://pfp2sepuun87" path="res://platforms/water/water.tscn" id="2_8uh7m"]
 [ext_resource type="PackedScene" uid="uid://xdrmlcx6hubo" path="res://platforms/clouds/cloud1.tscn" id="3_6uqi0"]
+[ext_resource type="PackedScene" uid="uid://crixf4o83rggb" path="res://objects/bottom-line/bottom_line.tscn" id="3_ppyta"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_37kl0")]
 buffer_time = 1.0
 
-[node name="Water" parent="." instance=ExtResource("2_8uh7m")]
-position = Vector2(2, 207)
-collision_layer = 4
-collision_mask = 65535
-
 [node name="Cloud1" parent="." instance=ExtResource("3_6uqi0")]
 position = Vector2(175, 168)
+
+[node name="BottomLine" parent="." instance=ExtResource("3_ppyta")]
+
+[node name="BottomLine2" parent="." instance=ExtResource("3_ppyta")]
+position = Vector2(-1000, 0)
+rotation = 1.5707964
+
+[node name="BottomLine3" parent="." instance=ExtResource("3_ppyta")]
+position = Vector2(1000, 0)
+rotation = -1.5707964

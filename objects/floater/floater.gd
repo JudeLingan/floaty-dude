@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Floater
 
-@export var boyancy: float = 1.0
+@export var buoyancy: float = 1.0
 @export var impact_divisor: float = 2.0
 var is_in_water: bool = false
 
@@ -15,9 +15,9 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if is_in_water:
 		if parent_body:
-			parent_body.velocity.y -= boyancy*delta
+			parent_body.velocity.y -= buoyancy*delta
 		else:
-			velocity.y -= boyancy*delta
+			velocity.y -= buoyancy*delta
 
 	move_and_slide()
 
@@ -29,6 +29,7 @@ func impact() -> void:
 
 func apply_force(force: Vector2) -> void:
 	if parent_body:
+		print(force)
 		get_parent().velocity += force
 	else:
 		velocity += force
