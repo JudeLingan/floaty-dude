@@ -5,6 +5,7 @@ Audio:
 	checkpoint (LushLife_LevelUp.wav) - SimonBay
 	cloud-landing (Poof in cloud) - Mateusz_Chenc
 	jump (VOC_Male_Jump_06.wav) - pekena_larva
+	death (The Last Gasp before death) - randbsoundbites
 	balloon (Balloon Expels Air) - Terry93D
 	main_theme - Jude Lingan
 
