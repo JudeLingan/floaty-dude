@@ -29,7 +29,6 @@ func impact() -> void:
 
 func apply_force(force: Vector2) -> void:
 	if parent_body:
-		print(force)
-		get_parent().velocity += force
+		get_parent().apply_force(force)
 	else:
 		velocity += force

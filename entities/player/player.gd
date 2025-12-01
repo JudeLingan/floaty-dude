@@ -28,10 +28,11 @@ var buffer_timer: Timer
 var jump_timer: Timer
 
 # vertical movement states
-enum VertStates { FALLING, GROUNDED, JUMPING }
+enum VertStates { FALLING, GROUNDED, JUMPING, ANIMATION }
 
 var current_vert_state: VertStates = VertStates.FALLING
 
+var checkpoint: Checkpoint = null
 
 func _init() -> void:
 	#initialize timers
@@ -60,8 +61,12 @@ func _ready() -> void:
 
 	# air gage init
 	%AirGage.capacity = max_air
+	%AirBar.max_value = max_air
 
 func _physics_process(delta: float) -> void:
+	# bypass all movement during animations
+	if (current_vert_state == VertStates.ANIMATION): return
+
 	# add the gravity and enter the grounded state if on floor
 	if !(is_on_floor()):
 		velocity += get_gravity()*delta
@@ -86,8 +91,7 @@ func _physics_process(delta: float) -> void:
 				enter_state(VertStates.FALLING)
 		VertStates.FALLING:
 			if (Input.is_action_pressed("jump")):
-				air_boost(delta)
-				particles_enabled = true
+				particles_enabled = air_boost(delta)
 
 	%AirParticles.emitting = particles_enabled
 	# Get the input direction and handle the movement/deceleration.
@@ -95,6 +99,8 @@ func _physics_process(delta: float) -> void:
 	walk(direction, delta)
 
 	move_and_slide()
+
+	%AirBar.value = %AirGage.amount
 
 func try_jump() -> void:
 	if (current_vert_state == VertStates.GROUNDED):
@@ -119,9 +125,13 @@ func enter_state(state: VertStates) -> void:
 			if (buffer_timer.time_left && Input.is_action_pressed("jump")):
 				enter_state(VertStates.JUMPING)
 
-func air_boost(delta):
-	%AirGage.use(1.0*delta)
-	velocity += Vector2.UP*air_propulsion*delta
+func air_boost(delta) -> bool:
+	if (%AirGage.use(1.0*delta)):
+		print(%AirGage.amount)
+		velocity += Vector2.UP*air_propulsion*delta
+		return true
+
+	return false
 
 func apply_force(force: Vector2) -> void:
 	velocity += force
@@ -172,3 +182,7 @@ func reset_timers() -> void:
 	coyote_timer.stop()
 	jump_timer.stop()
 	buffer_timer.stop()
+
+func die() -> void:
+	velocity = Vector2.ZERO
+	self.position = checkpoint.respawn_point.position

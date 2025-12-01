@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhebdfparqrol"
-path="res://.godot/imported/Cloud2.png-dfd68227d632a1fd10b45f5c62103e27.ctex"
+uid="uid://dk4f1hy4fbnq"
+path="res://.godot/imported/Sky-Clear4.png-de270155e515eb4df1215f7b3212cdcb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://environment-sprites/Cloud2.png"
-dest_files=["res://.godot/imported/Cloud2.png-dfd68227d632a1fd10b45f5c62103e27.ctex"]
+source_file="res://ui-sprites/clouds-menu-overlay/Sky-Clear4.png"
+dest_files=["res://.godot/imported/Sky-Clear4.png-de270155e515eb4df1215f7b3212cdcb.ctex"]
 
 [params]
 

@@ -13,4 +13,7 @@ func use(n: float) -> bool:
 	return true
 
 func replenish(n: float) -> void:
-	amount = max(amount + n, capacity)
+	amount = min(amount + n, capacity)
+
+func fill() -> void:
+	amount = capacity

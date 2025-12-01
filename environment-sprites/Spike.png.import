@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl6nukdbqvcop"
-path="res://.godot/imported/Cloud3.png-05f331cd2e9b2f7890d3b3aa1d88a0c7.ctex"
+uid="uid://d2oypnlsau2km"
+path="res://.godot/imported/Spike.png-e2731d10cc4e18ce65dfaa7590cc50be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://environment-sprites/Cloud3.png"
-dest_files=["res://.godot/imported/Cloud3.png-05f331cd2e9b2f7890d3b3aa1d88a0c7.ctex"]
+source_file="res://environment-sprites/Spike.png"
+dest_files=["res://.godot/imported/Spike.png-e2731d10cc4e18ce65dfaa7590cc50be.ctex"]
 
 [params]
 

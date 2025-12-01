@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://rb1h161ef6xh"]
+[gd_scene load_steps=26 format=3 uid="uid://rb1h161ef6xh"]
 
 [ext_resource type="Script" uid="uid://bj2m4kpwr3sdb" path="res://entities/player/player.gd" id="1_g1dw6"]
 [ext_resource type="Texture2D" uid="uid://bmj2158iyogml" path="res://entities/player/sprites/idle.png" id="3_sglur"]
@@ -142,9 +142,12 @@ animations = [{
 radius = 1.94
 height = 10.15
 
+[sub_resource type="Theme" id="Theme_fkugw"]
+
 [node name="Player" type="CharacterBody2D"]
 z_index = -1
-scale = Vector2(6, 6)
+position = Vector2(-5.9999995, 0)
+scale = Vector2(10, 10)
 collision_mask = 6
 floor_stop_on_slope = false
 script = ExtResource("1_g1dw6")
@@ -152,6 +155,7 @@ accel_time = 0.2
 decel_time = 0.2
 jump_velocity = 200.0
 jump_time = 0.5
+max_air = 1.0
 air_propulsion = 2000.0
 coyote_time = 0.1
 buffer_time = 0.1
@@ -159,7 +163,7 @@ buffer_time = 0.1
 [node name="AirParticles" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
 z_index = -2
-position = Vector2(0, 8)
+position = Vector2(0, 2.0000005)
 emitting = false
 amount = 20
 texture = SubResource("GradientTexture2D_8fjmc")
@@ -195,3 +199,27 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floaty"]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_8fjmc")
+
+[node name="Container" type="Container" parent="."]
+layout_direction = 2
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AirBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_fkugw")
+value = 100.0

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3yruyeusrcui"]
+
+[ext_resource type="Script" uid="uid://dygi8qv46gq66" path="res://objects/checkpoint/checkpoint.gd" id="1_aaksu"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j0b1x"]
+normal = Vector2(0, 1)
+
+[node name="Checkpoint" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_aaksu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("WorldBoundaryShape2D_j0b1x")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
