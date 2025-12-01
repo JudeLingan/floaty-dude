@@ -26,6 +26,6 @@ func _on_body_entered(body: Node2D):
 		body.enter_state(Player.VertStates.ANIMATION)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _physics_process(delta: float) -> void:
-#	if Player:
-#		player.position
+func _physics_process(delta: float) -> void:
+	if player:
+		player.position = player.position.move_toward(respawn_point.position, delta)
