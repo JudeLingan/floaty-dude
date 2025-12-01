@@ -1,10 +1,28 @@
-[gd_scene load_steps=22 format=3 uid="uid://rb1h161ef6xh"]
+[gd_scene load_steps=25 format=3 uid="uid://rb1h161ef6xh"]
 
 [ext_resource type="Script" uid="uid://bj2m4kpwr3sdb" path="res://entities/player/player.gd" id="1_g1dw6"]
 [ext_resource type="Texture2D" uid="uid://bmj2158iyogml" path="res://entities/player/sprites/idle.png" id="3_sglur"]
 [ext_resource type="Script" uid="uid://c2eya68eyfyt7" path="res://util/resource.gd" id="3_yw30f"]
 [ext_resource type="Texture2D" uid="uid://s7pckyre7cvs" path="res://entities/player/sprites/walking.png" id="4_bls4j"]
 [ext_resource type="Script" uid="uid://bpdg3axis58bg" path="res://objects/floater/floater.gd" id="5_fkugw"]
+
+[sub_resource type="Gradient" id="Gradient_fkugw"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.87150097, 0.901569, 0.9108935, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8fjmc"]
+gradient = SubResource("Gradient_fkugw")
+width = 8
+height = 8
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fkugw"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.5
+direction = Vector3(0, 1, 0)
+spread = 74.0
+initial_velocity_min = 31.74
+initial_velocity_max = 222.22
+gravity = Vector3(0, 36, 0)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fkugw"]
 radius = 15.0
@@ -125,20 +143,34 @@ radius = 13.0
 height = 68.0
 
 [node name="Player" type="CharacterBody2D"]
+z_index = -1
+collision_mask = 6
 floor_stop_on_slope = false
 script = ExtResource("1_g1dw6")
 accel_time = 0.2
 decel_time = 0.2
-jump_velocity = 300.0
+jump_velocity = 200.0
 jump_time = 0.5
+air_propulsion = 2000.0
 coyote_time = 0.1
 buffer_time = 0.1
+
+[node name="AirParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+z_index = -2
+position = Vector2(0, 8)
+emitting = false
+amount = 20
+texture = SubResource("GradientTexture2D_8fjmc")
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_fkugw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_fkugw")
 
 [node name="AirGage" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("3_yw30f")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -154,9 +186,9 @@ speed_scale = 1.42
 [node name="Floaty" type="CharacterBody2D" parent="."]
 position = Vector2(0, 13)
 collision_layer = 64
+collision_mask = 2
 script = ExtResource("5_fkugw")
-boyancy = 1300.0
-impact_divisor = 4.0
+boyancy = 2000.0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floaty"]

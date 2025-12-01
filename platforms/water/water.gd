@@ -30,7 +30,7 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if (body is Player):
 		if (body.current_vert_state != Player.VertStates.JUMPING):
-			body.enter_state(Player.VertStates.FALLING)
+			body.coyote_timer.start()
 	if (body is Floater):
 		body.is_in_water = false
 		#remove floater from array

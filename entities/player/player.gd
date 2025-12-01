@@ -10,11 +10,8 @@ class_name Player
 @export var jump_velocity: float = 400.0
 @export var boost: float = 10.0
 @export var jump_time: float = 1.0
-@export var max_air:int = 100
-
-@export_group("Water Physics")
-@export var accel_time_water: float = 1.0
-@export var decel_time_water: float = 1.0
+@export var max_air: float = 100
+@export var air_propulsion: float = 100.0
 
 @export_group("Polish")
 @export var coyote_time: float = 1.0
@@ -24,8 +21,6 @@ class_name Player
 
 @onready var accel = speed/accel_time
 @onready var decel = speed/decel_time
-
-@onready var air: float = max_air
 
 # timers
 var coyote_timer: Timer
@@ -43,6 +38,7 @@ func _init() -> void:
 	coyote_timer = Timer.new()
 	coyote_timer.one_shot = true
 	self.add_child(coyote_timer)
+	coyote_timer.timeout.connect(_on_coyote_timeout)
 
 	buffer_timer = Timer.new()
 	buffer_timer.one_shot = true
@@ -62,14 +58,25 @@ func _ready() -> void:
 	buffer_timer.wait_time = buffer_time
 	jump_timer.wait_time = jump_time
 
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if !(is_on_floor()):
-		velocity += get_gravity() * delta
+	# air gage init
+	%AirGage.capacity = max_air
 
-	# Vertical movement state machine
+func _physics_process(delta: float) -> void:
+	# add the gravity and enter the grounded state if on floor
+	if !(is_on_floor()):
+		velocity += get_gravity()*delta
+	else:
+		enter_state(VertStates.GROUNDED)
+
+	var particles_enabled = false
+	# vertical movement state machine
 	match(current_vert_state):
+		[VertStates.FALLING, VertStates.JUMPING]:
+			if (Input.is_action_just_pressed("jump")):
+				buffer_timer.start()
+				print("buffer start")
 		VertStates.GROUNDED:
+			%AirGage.replenish(1.0*delta)
 			if (Input.is_action_just_pressed("jump")):
 				try_jump()
 		VertStates.JUMPING:
@@ -77,7 +84,12 @@ func _physics_process(delta: float) -> void:
 				apply_force(boost*Vector2.UP)
 			else:
 				enter_state(VertStates.FALLING)
+		VertStates.FALLING:
+			if (Input.is_action_pressed("jump")):
+				air_boost(delta)
+				particles_enabled = true
 
+	%AirParticles.emitting = particles_enabled
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("left", "right")
 	walk(direction, delta)
@@ -92,19 +104,32 @@ func try_jump() -> void:
 
 # Enter state and do any state-specific
 func enter_state(state: VertStates) -> void:
+	# prevent redoing entering actions
+	if (state == current_vert_state):
+		return
+
+	assert(state <= VertStates.size())
+	current_vert_state = state
+
 	match (state):
 		VertStates.JUMPING:
 			velocity = max(jump_velocity, -velocity.y + jump_velocity)*Vector2.UP + velocity*Vector2.RIGHT
 			jump_timer.start()
+		VertStates.GROUNDED:
+			if (buffer_timer.time_left && Input.is_action_pressed("jump")):
+				enter_state(VertStates.JUMPING)
 
-	assert(state <= VertStates.size())
-	current_vert_state = state
+func air_boost(delta):
+	%AirGage.use(1.0*delta)
+	var dir: Vector2 = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down")).normalized()
+	if dir.length() == 0: dir = Vector2.UP
+	velocity += dir*air_propulsion*delta
 
 func apply_force(force: Vector2) -> void:
 	velocity += force
 
 func apply_force_clamp(force: Vector2, limit: Vector2) -> void:
-	# make it so that force is no greater than clamp
+	#make it so that force is no greater than clamp
 	force.clamp(-abs(limit), abs(limit));
 	apply_force(force)
 
@@ -133,8 +158,19 @@ func toggle_animation(animation: String) -> void:
 		sprite.animation = animation
 		sprite.play()
 
-# SIGNAL WRAPPER FUNCTIONS
+# ANNOYINGLY SHORT SIGNAL WRAPPER FUNCTIONS
 func _on_jump_timeout() -> void:
-	print("timeout")
-	if (current_vert_state == VertStates.JUMPING):
-		enter_state(VertStates.FALLING)
+	enter_state(VertStates.FALLING)
+
+func _on_coyote_timeout() -> void:
+	enter_state(VertStates.FALLING)
+
+func _on_landing() -> void:
+	if (buffer_timer.time_left):
+		enter_state(VertStates.JUMPING)
+	reset_timers()
+
+func reset_timers() -> void:
+	coyote_timer.stop()
+	jump_timer.stop()
+	buffer_timer.stop()
