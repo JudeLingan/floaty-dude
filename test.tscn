@@ -6,9 +6,6 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_37kl0")]
-boyancy = 500.0
-accel_time = 1.0
-decel_time = 1.0
 
 [node name="Water" parent="." instance=ExtResource("2_8uh7m")]
 position = Vector2(2, 207)
