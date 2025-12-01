@@ -1,10 +1,10 @@
 Programming - Jude Lingan
 Art and Animation - Ricky Smith
 Audio:
-	water_splash_10shots.wav - vibe-crc
-	LushLife_LevelUp.wav - SimonBay
-	Poof in cloud - Mateusz_Chenc
-	VOC_Male_Jump_06.wav - pekena_larva
-	Ballon Expels Air - Terry93D
+	water-landing (water_splash_10shots.wav) - vibe-crc
+	checkpoint (LushLife_LevelUp.wav) - SimonBay
+	cloud-landing (Poof in cloud) - Mateusz_Chenc
+	jump (VOC_Male_Jump_06.wav) - pekena_larva
+	balloon (Balloon Expels Air) - Terry93D
 	main_theme - Jude Lingan
 
