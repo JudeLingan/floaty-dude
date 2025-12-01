@@ -84,6 +84,7 @@ func _physics_process(delta: float) -> void:
 			%AirGage.replenish(1.0*delta)
 			if (Input.is_action_just_pressed("jump")):
 				try_jump()
+			reset_timers()
 		VertStates.JUMPING:
 			if (Input.is_action_pressed("jump")):
 				apply_force(boost*Vector2.UP)
@@ -124,6 +125,11 @@ func enter_state(state: VertStates) -> void:
 		VertStates.GROUNDED:
 			if (buffer_timer.time_left && Input.is_action_pressed("jump")):
 				enter_state(VertStates.JUMPING)
+			reset_timers()
+		VertStates.ANIMATION:
+			$CollisionShape2D.set_deferred("disabled", true)
+		VertStates.FALLING:
+			$CollisionShape2D.set_deferred("disabled", false)
 
 func air_boost(delta) -> bool:
 	if (%AirGage.use(1.0*delta)):

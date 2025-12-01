@@ -1,9 +1,74 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3yruyeusrcui"]
+[gd_scene load_steps=13 format=3 uid="uid://c3yruyeusrcui"]
 
 [ext_resource type="Script" uid="uid://dygi8qv46gq66" path="res://objects/checkpoint/checkpoint.gd" id="1_aaksu"]
+[ext_resource type="Texture2D" uid="uid://cbqfh20ap2vhh" path="res://environment-sprites/Rainbow.png" id="2_ixyje"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j0b1x"]
 normal = Vector2(0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6kbk"]
+atlas = ExtResource("2_ixyje")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmxiy"]
+atlas = ExtResource("2_ixyje")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oe78r"]
+atlas = ExtResource("2_ixyje")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_divel"]
+atlas = ExtResource("2_ixyje")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqo6h"]
+atlas = ExtResource("2_ixyje")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_787b6"]
+atlas = ExtResource("2_ixyje")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylgp2"]
+atlas = ExtResource("2_ixyje")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpsld"]
+atlas = ExtResource("2_ixyje")
+region = Rect2(56, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yc5da"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6kbk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmxiy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oe78r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_divel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqo6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_787b6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylgp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpsld")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Checkpoint" type="Area2D"]
 collision_layer = 4
@@ -12,8 +77,13 @@ script = ExtResource("1_aaksu")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("WorldBoundaryShape2D_j0b1x")
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
+[node name="Rainbow" type="Parallax2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(12, 12)
+repeat_size = Vector2(8, 0)
+repeat_times = 30
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Rainbow"]
+sprite_frames = SubResource("SpriteFrames_yc5da")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

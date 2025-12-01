@@ -1,0 +1,177 @@
+[gd_scene load_steps=8 format=3 uid="uid://bavnp2iy8ico4"]
+
+[ext_resource type="PackedScene" uid="uid://rb1h161ef6xh" path="res://entities/player/player.tscn" id="1_lgr22"]
+[ext_resource type="PackedScene" uid="uid://xdrmlcx6hubo" path="res://platforms/clouds/cloud1.tscn" id="2_trn2v"]
+[ext_resource type="PackedScene" uid="uid://crixf4o83rggb" path="res://objects/bottom-line/bottom_line.tscn" id="3_03owx"]
+[ext_resource type="PackedScene" uid="uid://bsdhgo3xwv670" path="res://objects/edge-line/edge-line.tscn" id="4_wkp8b"]
+[ext_resource type="Texture2D" uid="uid://cswsdgr3ckmuk" path="res://environment-sprites/Background.png" id="5_20pc6"]
+[ext_resource type="PackedScene" uid="uid://c3yruyeusrcui" path="res://objects/checkpoint/checkpoint.tscn" id="6_5vvyt"]
+[ext_resource type="PackedScene" uid="uid://pfp2sepuun87" path="res://platforms/water/water.tscn" id="7_lgr22"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_lgr22")]
+position = Vector2(-9, -2.9999998)
+buffer_time = 1.0
+
+[node name="Cloud1" parent="." instance=ExtResource("2_trn2v")]
+position = Vector2(175, 168)
+
+[node name="BottomLine" parent="." instance=ExtResource("3_03owx")]
+z_index = 98
+
+[node name="EdgeLine" parent="." instance=ExtResource("4_wkp8b")]
+z_index = 99
+position = Vector2(-2048, 0)
+
+[node name="EdgeLine2" parent="." instance=ExtResource("4_wkp8b")]
+z_index = 99
+position = Vector2(2048, 0)
+flip_h = true
+
+[node name="foreground" type="Parallax2D" parent="."]
+modulate = Color(1, 1, 1, 0.5058824)
+z_index = 100
+scroll_scale = Vector2(2, 2)
+repeat_size = Vector2(1536, 3072)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="foreground"]
+scale = Vector2(12, 12)
+texture = ExtResource("5_20pc6")
+
+[node name="background" type="Parallax2D" parent="."]
+z_index = -100
+repeat_size = Vector2(768, 1536)
+repeat_times = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="background"]
+modulate = Color(0.27018824, 0.5185127, 0.70897436, 1)
+scale = Vector2(6, 6)
+texture = ExtResource("5_20pc6")
+
+[node name="Checkpoints" type="Node" parent="."]
+
+[node name="Checkpoint2" parent="." instance=ExtResource("6_5vvyt")]
+position = Vector2(143, -9268)
+
+[node name="Cloud1" parent="Checkpoint2" instance=ExtResource("2_trn2v")]
+z_index = -5
+position = Vector2(-315, 287)
+scale = Vector2(20, 20)
+
+[node name="Cloud2" parent="Checkpoint2" instance=ExtResource("2_trn2v")]
+z_index = -5
+position = Vector2(1298.9999, 287)
+scale = Vector2(20, 20)
+
+[node name="Cloud3" parent="Checkpoint2" instance=ExtResource("2_trn2v")]
+z_index = -5
+position = Vector2(-1509.9999, 287)
+scale = Vector2(20, 20)
+
+[node name="Checkpoint1" parent="." instance=ExtResource("6_5vvyt")]
+position = Vector2(2, -1811)
+
+[node name="Cloud1" parent="Checkpoint1" instance=ExtResource("2_trn2v")]
+z_index = -5
+position = Vector2(-315, 287)
+scale = Vector2(20, 20)
+
+[node name="Cloud2" parent="Checkpoint1" instance=ExtResource("2_trn2v")]
+z_index = -5
+position = Vector2(1298.9999, 287)
+scale = Vector2(20, 20)
+
+[node name="Cloud3" parent="Checkpoint1" instance=ExtResource("2_trn2v")]
+z_index = -5
+position = Vector2(-1509.9999, 287)
+scale = Vector2(20, 20)
+
+[node name="Water" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(-164.00002, 207)
+scale = Vector2(10, 10)
+
+[node name="Water2" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(262.99994, 5.0000153)
+scale = Vector2(10, 10)
+
+[node name="Water3" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(739, -294.99994)
+scale = Vector2(10, 10)
+
+[node name="Water4" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(276.00003, -663.9999)
+scale = Vector2(10, 10)
+
+[node name="Water5" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(-297.9999, -1020.9999)
+scale = Vector2(10, 10)
+
+[node name="Water6" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(-719, -1580.0002)
+scale = Vector2(10, 10)
+
+[node name="Water7" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(206.99994, -1851)
+scale = Vector2(10, 10)
+
+[node name="Water8" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(963.99994, -1411)
+scale = Vector2(12, 12)
+
+[node name="Water9" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(363.00006, -1221)
+scale = Vector2(10, 10)
+
+[node name="Water10" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(1496, -2072)
+scale = Vector2(10, 10)
+
+[node name="Water11" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(367.00012, -2502)
+scale = Vector2(10, 10)
+
+[node name="Water12" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(861, -2227)
+scale = Vector2(10, 10)
+
+[node name="Water13" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(-414, -2152)
+scale = Vector2(12, 12)
+
+[node name="Water14" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(-300, -370.00006)
+scale = Vector2(10, 10)
+
+[node name="Water15" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(-220, -3329.9998)
+scale = Vector2(10, 10)
+
+[node name="Water16" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(-58.000015, -3676.9998)
+scale = Vector2(10, 10)
+
+[node name="Water17" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(126.999985, -4185.9995)
+scale = Vector2(12, 12)
+
+[node name="Water18" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(391.00003, -5081.0005)
+scale = Vector2(20, 20)
+
+[node name="Water19" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(631, -3973.0005)
+scale = Vector2(10, 10)
+
+[node name="Water20" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(933, -3369)
+scale = Vector2(10, 10)
+
+[node name="Water21" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(799, -3671)
+scale = Vector2(12, 12)
+
+[node name="Water22" parent="Checkpoint1" instance=ExtResource("7_lgr22")]
+position = Vector2(357.00003, -3044)
+scale = Vector2(10, 10)

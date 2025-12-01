@@ -1,17 +1,85 @@
-[gd_scene load_steps=4 format=3 uid="uid://pfp2sepuun87"]
+[gd_scene load_steps=12 format=3 uid="uid://pfp2sepuun87"]
 
 [ext_resource type="Script" uid="uid://3dg41k5bfgh3" path="res://platforms/water/water.gd" id="1_ygmku"]
-[ext_resource type="Texture2D" uid="uid://bx14ssf34e62" path="res://icon.svg" id="2_ixvb4"]
+[ext_resource type="Texture2D" uid="uid://dkcw1nr707lfk" path="res://environment-sprites/Water-Bubble-Shelf.png" id="2_ixvb4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ixvb4"]
-size = Vector2(120, 120)
+size = Vector2(32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsbxm"]
+atlas = ExtResource("2_ixvb4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rsa8"]
+atlas = ExtResource("2_ixvb4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7l37c"]
+atlas = ExtResource("2_ixvb4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhoe0"]
+atlas = ExtResource("2_ixvb4")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qm0j0"]
+atlas = ExtResource("2_ixvb4")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xndko"]
+atlas = ExtResource("2_ixvb4")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j5li6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsbxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rsa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7l37c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhoe0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qm0j0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xndko")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_c8mo6"]
+script/source = "extends AnimatedSprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	play(\"default\") # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [node name="Water" type="Area2D"]
-collision_mask = 64
+collision_mask = 65
 script = ExtResource("1_ygmku")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_ixvb4")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ixvb4")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_j5li6")
+frame = 5
+frame_progress = 0.1672657
+script = SubResource("GDScript_c8mo6")
