@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://jp5bvrww4dop"]
+
+[ext_resource type="Texture2D" uid="uid://dhi0riagu7b57" path="res://ui-sprites/Title.png" id="1_vfys4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vfys4"]
+
+[sub_resource type="Theme" id="Theme_0bprq"]
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_vfys4")
+
+[node name="MainMenu" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = SubResource("Theme_0bprq")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("1_vfys4")
+expand_mode = 5
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Credits" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Help" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Help"
